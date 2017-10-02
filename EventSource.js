@@ -44,7 +44,7 @@ var EventSource = function (url) {
       if (lastEventId != null) xhr.setRequestHeader('Last-Event-ID', lastEventId);
       cache = '';
 
-      xhr.timeout = 50000;
+      // xhr.timeout = 50000;
       xhr.onreadystatechange = function () {
         if (this.readyState == 3 || (this.readyState == 4 && this.status == 200)) {
           // on success
@@ -112,9 +112,9 @@ var EventSource = function (url) {
 
       xhr.send();
 
-      setTimeout(function () {
-        if (true || xhr.readyState == 3) xhr.abort();
-      }, xhr.timeout);
+      // setTimeout(function () {
+      //   if (true || xhr.readyState == 3) xhr.abort();
+      // }, xhr.timeout);
 
       eventsource._xhr = xhr;
 
@@ -130,7 +130,7 @@ EventSource.prototype = {
   close: function () {
     // closes the connection - disabling the polling
     this.readyState = this.CLOSED;
-    clearInterval(this._pollTimer);
+    clearTimeout(this._pollTimer);
     this._xhr.abort();
   },
   CONNECTING: 0,
